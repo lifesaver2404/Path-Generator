@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Learning Path Generator</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar" class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="brand-icon">🧠</span>
+                <span class="brand-text">AI Learning</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <button class="btn btn--primary" id="authBtn">Get Started</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Landing Page -->
+    <section id="landing" class="landing">
+        <div class="container">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1 class="hero-title">
+                        Transform Your Learning with 
+                        <span class="neon-text">AI-Powered</span> 
+                        Personal Paths
+                    </h1>
+                    <p class="hero-description">
+                        Get personalized learning roadmaps tailored to your goals, skill level, and preferences. 
+                        Powered by advanced AI to accelerate your growth.
+                    </p>
+                    <div class="hero-buttons">
+                        <button class="btn btn--primary btn--lg" id="getStartedBtn">
+                            <span>Start Learning</span>
+                            <span class="btn-icon">🚀</span>
+                        </button>
+                        <button class="btn btn--outline btn--lg" id="learnMoreBtn">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-card">
+                        <div class="card-content">
+                            <h3>📊 Data Science</h3>
+                            <p>12-week personalized path</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-card delay-1">
+                        <div class="card-content">
+                            <h3>💻 Web Development</h3>
+                            <p>8-week intensive course</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="floating-card delay-2">
+                        <div class="card-content">
+                            <h3>🤖 Machine Learning</h3>
+                            <p>16-week advanced path</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal -->
+    <div id="authModal" class="modal hidden">
+        <div class="modal-overlay" id="authOverlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="authTitle">Welcome Back</h2>
+                <button class="modal-close" id="closeAuthModal">&times;</button>
+            </div>
+            
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <div class="social-auth">
+                    <button class="btn btn--social google-btn" id="googleLogin">
+                        <span class="social-icon">🔍</span>
+                        Continue with Google
+                    </button>
+                </div>
+                
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                
+                <form id="emailLoginForm">
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="loginEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="••••••••" required>
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Sign In</button>
+                </form>
+                
+                <p class="auth-switch">
+                    Don't have an account? 
+                    <a href="#" id="showRegister">Create one</a>
+                </p>
+            </div>
+            
+            <!-- Register Form -->
+            <div id="registerForm" class="auth-form hidden">
+                <div class="social-auth">
+                    <button class="btn btn--social google-btn" id="googleRegister">
+                        <span class="social-icon">🔍</span>
+                        Sign up with Google
+                    </button>
+                </div>
+                
+                <div class="divider">
+                    <span>or</span>
+                </div>
+                
+                <form id="emailRegisterForm">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-control" id="registerName" placeholder="John Doe" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="registerEmail" placeholder="your@email.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Password</label>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="••••••••" required minlength="6">
+                    </div>
+                    <button type="submit" class="btn btn--primary btn--full-width">Create Account</button>
+                </form>
+                
+                <p class="auth-switch">
+                    Already have an account? 
+                    <a href="#" id="showLogin">Sign in</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Onboarding Flow -->
+    <section id="onboarding" class="onboarding hidden">
+        <div class="container">
+            <div class="onboarding-header">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="onboardingProgress"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">Step 1 of 6</span>
+                </div>
+            </div>
+            
+            <div class="onboarding-content">
+                <!-- Step 1: Welcome -->
+                <div class="onboarding-step active" data-step="1">
+                    <div class="step-content">
+                        <div class="step-icon">👋</div>
+                        <h2>Welcome to Your Learning Journey!</h2>
+                        <p>Let's create a personalized learning path that fits your goals and schedule.</p>
+                        <div class="form-group">
+                            <label class="form-label">What should we call you?</label>
+                            <input type="text" class="form-control" id="userName" placeholder="Your preferred name" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Current Skills -->
+                <div class="onboarding-step" data-step="2">
+                    <div class="step-content">
+                        <div class="step-icon">💪</div>
+                        <h2>What's your current skill level?</h2>
+                        <p>Help us understand where you're starting from.</p>
+                        <div class="skill-options">
+                            <div class="skill-option" data-value="Beginner">
+                                <div class="option-icon">🌱</div>
+                                <h3>Beginner</h3>
+                                <p>Just getting started</p>
+                            </div>
+                            <div class="skill-option" data-value="Intermediate">
+                                <div class="option-icon">🚀</div>
+                                <h3>Intermediate</h3>
+                                <p>Some experience</p>
+                            </div>
+                            <div class="skill-option" data-value="Advanced">
+                                <div class="option-icon">⭐</div>
+                                <h3>Advanced</h3>
+                                <p>Experienced learner</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Learning Goals -->
+                <div class="onboarding-step" data-step="3">
+                    <div class="step-content">
+                        <div class="step-icon">🎯</div>
+                        <h2>What do you want to learn?</h2>
+                        <p>Select your areas of interest (you can choose multiple).</p>
+                        <div class="subject-grid">
+                            <div class="subject-item" data-value="Data Science">
+                                <span class="subject-icon">📊</span>
+                                <span>Data Science</span>
+                            </div>
+                            <div class="subject-item" data-value="Web Development">
+                                <span class="subject-icon">💻</span>
+                                <span>Web Development</span>
+                            </div>
+                            <div class="subject-item" data-value="Machine Learning">
+                                <span class="subject-icon">🤖</span>
+                                <span>Machine Learning</span>
+                            </div>
+                            <div class="subject-item" data-value="Mobile Development">
+                                <span class="subject-icon">📱</span>
+                                <span>Mobile Development</span>
+                            </div>
+                            <div class="subject-item" data-value="Cybersecurity">
+                                <span class="subject-icon">🔒</span>
+                                <span>Cybersecurity</span>
+                            </div>
+                            <div class="subject-item" data-value="UI/UX Design">
+                                <span class="subject-icon">🎨</span>
+                                <span>UI/UX Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Time Commitment -->
+                <div class="onboarding-step" data-step="4">
+                    <div class="step-content">
+                        <div class="step-icon">⏰</div>
+                        <h2>How much time can you dedicate?</h2>
+                        <p>This helps us pace your learning appropriately.</p>
+                        <div class="time-options">
+                            <div class="time-option" data-value="2-5 hours/week">
+                                <div class="option-icon">🐢</div>
+                                <h3>2-5 hours/week</h3>
+                                <p>Steady & sustainable</p>
+                            </div>
+                            <div class="time-option" data-value="5-10 hours/week">
+                                <div class="option-icon">🏃</div>
+                                <h3>5-10 hours/week</h3>
+                                <p>Balanced approach</p>
+                            </div>
+                            <div class="time-option" data-value="10-15 hours/week">
+                                <div class="option-icon">⚡</div>
+                                <h3>10-15 hours/week</h3>
+                                <p>Intensive learning</p>
+                            </div>
+                            <div class="time-option" data-value="15+ hours/week">
+                                <div class="option-icon">🔥</div>
+                                <h3>15+ hours/week</h3>
+                                <p>Full commitment</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Learning Style -->
+                <div class="onboarding-step" data-step="5">
+                    <div class="step-content">
+                        <div class="step-icon">🧠</div>
+                        <h2>How do you learn best?</h2>
+                        <p>We'll customize your path based on your preferred learning style.</p>
+                        <div class="learning-styles">
+                            <div class="style-option" data-value="Visual">
+                                <div class="option-icon">👁️</div>
+                                <h3>Visual</h3>
+                                <p>Diagrams, charts, infographics</p>
+                            </div>
+                            <div class="style-option" data-value="Hands-on Projects">
+                                <div class="option-icon">🛠️</div>
+                                <h3>Hands-on Projects</h3>
+                                <p>Build while you learn</p>
+                            </div>
+                            <div class="style-option" data-value="Reading">
+                                <div class="option-icon">📚</div>
+                                <h3>Reading</h3>
+                                <p>Articles, documentation, books</p>
+                            </div>
+                            <div class="style-option" data-value="Video Tutorials">
+                                <div class="option-icon">🎥</div>
+                                <h3>Video Tutorials</h3>
+                                <p>Learn by watching</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 6: Avatar Selection -->
+                <div class="onboarding-step" data-step="6">
+                    <div class="step-content">
+                        <div class="step-icon">🤖</div>
+                        <h2>Choose Your AI Mentor</h2>
+                        <p>Pick an avatar that will guide you through your learning journey.</p>
+                        <div class="avatar-options">
+                            <div class="avatar-option" data-value="mentor_ai">
+                                <div class="avatar-image">🤖</div>
+                                <h3>AI Assistant</h3>
+                                <p>Helpful and encouraging</p>
+                            </div>
+                            <div class="avatar-option" data-value="mentor_wise">
+                                <div class="avatar-image">🦉</div>
+                                <h3>Wise Owl</h3>
+                                <p>Thoughtful and patient</p>
+                            </div>
+                            <div class="avatar-option" data-value="mentor_energetic">
+                                <div class="avatar-image">😸</div>
+                                <h3>Energy Cat</h3>
+                                <p>Energetic and motivating</p>
+                            </div>
+                            <div class="avatar-option" data-value="mentor_zen">
+                                <div class="avatar-image">🧘</div>
+                                <h3>Zen Master</h3>
+                                <p>Calm and focused</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="onboarding-actions">
+                <button class="btn btn--outline" id="prevStep" disabled>Previous</button>
+                <button class="btn btn--primary" id="nextStep">Next</button>
+                <button class="btn btn--primary hidden" id="generatePath">
+                    <span>Generate My Learning Path</span>
+                    <span class="btn-icon">✨</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen hidden">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h2>Generating Your Personalized Learning Path</h2>
+            <p id="loadingText">Analyzing your preferences...</p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <section id="dashboard" class="dashboard hidden">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <div class="user-avatar" id="userAvatar">🤖</div>
+                    <div class="user-details">
+                        <h2 id="welcomeUser">Welcome back!</h2>
+                        <p class="user-stats">Level <span id="userLevel">1</span> • <span id="userXP">0</span> XP</p>
+                    </div>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn--outline" id="profileBtn">Profile</button>
+                    <button class="btn btn--secondary" id="logoutBtn">Logout</button>
+                </div>
+            </div>
+            
+            <div class="dashboard-grid">
+                <!-- Stats Cards -->
+                <div class="stats-section">
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div class="stat-content">
+                            <h3 id="streakCount">0</h3>
+                            <p>Day Streak</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-content">
+                            <h3 id="badgeCount">0</h3>
+                            <p>Badges Earned</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📚</div>
+                        <div class="stat-content">
+                            <h3 id="weeksCompleted">0</h3>
+                            <p>Weeks Completed</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-content">
+                            <h3 id="completionRate">0%</h3>
+                            <p>Completion Rate</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Current Learning Path -->
+                <div class="current-path-section">
+                    <div class="section-header">
+                        <h3>Current Learning Path</h3>
+                        <button class="btn btn--primary btn--sm" id="viewPathBtn">View Details</button>
+                    </div>
+                    <div class="path-card" id="currentPathCard">
+                        <div class="path-header">
+                            <h4 id="pathTitle">No active path</h4>
+                            <span class="path-duration" id="pathDuration"></span>
+                        </div>
+                        <div class="path-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="pathProgress"></div>
+                            </div>
+                            <span class="progress-text" id="pathProgressText">0% Complete</span>
+                        </div>
+                        <div class="current-week" id="currentWeek">
+                            <h5>Current Week: Getting Started</h5>
+                            <p>Complete your profile to begin your learning journey!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Badges -->
+                <div class="badges-section">
+                    <div class="section-header">
+                        <h3>Recent Achievements</h3>
+                    </div>
+                    <div class="badges-grid" id="recentBadges">
+                        <div class="empty-state">
+                            <p>Complete activities to earn badges!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Path View -->
+    <section id="pathView" class="path-view hidden">
+        <div class="container">
+            <div class="path-header">
+                <button class="btn btn--outline" id="backToDashboard">← Back to Dashboard</button>
+                <div class="path-info">
+                    <h2 id="pathViewTitle">Your Learning Path</h2>
+                    <div class="path-meta">
+                        <span id="pathViewDuration">12 weeks</span>
+                        <span class="separator">•</span>
+                        <span id="pathViewDifficulty">Intermediate</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="path-content">
+                <div class="path-overview">
+                    <div class="progress-card">
+                        <h3>Overall Progress</h3>
+                        <div class="progress-circle">
+                            <div class="circle-progress" id="overallProgress"></div>
+                            <div class="progress-text">
+                                <span id="overallPercentage">0%</span>
+                                <small>Complete</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-card">
+                        <h3>This Week's Focus</h3>
+                        <div id="weekSummary">
+                            <p>Complete your onboarding to see your weekly summary!</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weeks-timeline" id="weeksTimeline">
+                    <!-- Weekly content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
